@@ -72,7 +72,7 @@ class ProductController extends Controller {
         // return redirect()->route('products.index');
         
         // 成功しましたメッセージ
-        return redirect()->route('products.index')->with('success','文房具を登録しました');
+        return redirect()->route('products.index')->with('success','商品を登録しました');
 
 
     }
@@ -127,7 +127,7 @@ class ProductController extends Controller {
 
         // return redirect()->route('products.index');
         // 成功しましたメッセージ
-        return redirect()->route('products.index')->with('success','文房具を更新しました');
+        return redirect()->route('products.index')->with('success','商品を更新しました');
     }
 
     /**
@@ -140,6 +140,6 @@ class ProductController extends Controller {
     public function destroy( Product $product ) {
         $product->delete();
         return redirect()->route('products.index')
-        ->with('success','文房具'.$product->product_name.'を削除しました');
+        ->with('success','商品'.$product->product_name.'を削除しました');
     }
 }

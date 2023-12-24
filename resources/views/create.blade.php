@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2 style="font-size:1rem;">文房具登録画面(ここはcreate.blade.php)</h2>
+            <h2 style="font-size:2rem;">商品新規登録画面(ここはcreate.blade.php)</h2>
         </div>
     </div>
 </div>
@@ -62,10 +62,10 @@
         
         <!-- ボタンここから -->
         <div class="pull-right">
-            <button type="submit" class="btn btn-primary btn-lg mt-2">  登録  </button>
+            <button type="submit" class="btn btn-primary btn-lg mt-2">登録</button>
 
             <button type="button"  class="btn btn-warning btn-lg mt-2" >
-                <a style="text-decoration: none; color : #ffffff;" href="{{ url('/products') }}">  戻る  </a>
+                <a style="text-decoration: none; color : #ffffff;" href="{{ url('/products') }}">戻る</a>
             </button>
         </div>
 

@@ -14,11 +14,11 @@
             sans-serif;
     }
     </style>
-    <title>自動販売機管理システムのテスト20230512（ここはapp.blade.php）</title>
+    <title>自動販売機管理システム課題（ここはapp.blade.php）</title>
   </head>
   <body>
     <div class="container">
-    <h1 style="font-size:1.25rem;">自動販売機管理システム 20230512ver（ここはapp.blade.php）</h1>
+    <h1 style="font-size:1.25rem;">自動販売機管理システム課題（ここはapp.blade.php）</h1>
         @yield('content')
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>

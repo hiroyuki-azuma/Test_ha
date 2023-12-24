@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2 style="font-size:1rem;">文房具登録画面(ここはedit.blade.php)</h2>
+            <h2 style="font-size:2rem;">商品編集画面(ここはedit.blade.php)</h2>
         </div>
     </div>
 </div>
