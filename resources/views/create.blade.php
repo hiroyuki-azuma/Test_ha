@@ -30,7 +30,7 @@
             <div class="form-group">
                 <input type="text" name="price" class="form-control" placeholder="価格">
                 @error('price')
-                <span style="color:red; float: left;">名前を20文字以内で入力してください</span>
+                <span style="color:red; float: left;">価格を半角数字で入力してください</span>
                 @enderror
             </div>
         </div>
@@ -40,7 +40,7 @@
             <div class="form-group">
             <textarea class="form-control" style="height:100px" name="comment" placeholder="コメント"></textarea>
             @error('comment')
-                <span style="color:red; float: left;">なんか書いてよーーーーー</span>
+                <span style="color:red; float: left;">コメントを140文字以内で入力してください</span>
                 @enderror
             </div>
         </div>
@@ -55,7 +55,7 @@
                     @endforeach
                 </select>
                 @error('company')
-                <span style="color:red; float: left;">名前を20文字以内で入力してください</span>
+                <span style="color:red; float: left;">メーカーを選択してください</span>
                 @enderror
             </div>
         </div>

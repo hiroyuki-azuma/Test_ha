@@ -55,7 +55,7 @@
             <!-- <td><a href="{{ route('product.show',$product->id) }}">{{ $product->product_name }}</a></td> -->
             <td style="text-align:left">{{ $product->price }}円</td>
             <!-- ↓ここのみCompanyテーブルからデータを持ってくる -->
-            <td style="text-align:left">{{ $product->company_name }}</td>
+            <td style="text-align:left">{{ $product->company }}</td>
             <td style="text-align:center">
               <!-- <a class="btn btn-primary" href="{{ route('product.edit',$product->id) }}">変更</a> -->
               <a class="btn btn-sm btn-primary" href="{{ route('product.show',$product->id) }}">詳細</a>
