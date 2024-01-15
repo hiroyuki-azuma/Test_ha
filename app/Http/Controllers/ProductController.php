@@ -25,7 +25,7 @@ class ProductController extends Controller {
 
         if(!empty($keyword)) {
             $query->where('product_name', 'LIKE', "%{$keyword}%")
-                ->orWhere('company', 'LIKE', "%{$keyword}%");
+                ->orWhere('company_id', 'LIKE', "%{$keyword}%");
         }
 
         $products = $query->get();
@@ -56,16 +56,18 @@ class ProductController extends Controller {
 
     public function store( Request $request ) {
         $request->validate( [
+            'company_id' => 'required|integer',
             'product_name' => 'required|max:20',
             'price' => 'required|integer',
-            'company' => 'required|integer',
+            // 'company' => 'required|integer',
             'comment' => 'required|max:140',
         ] );
 
         $product = new Product;
+        $product->company_id = $request->input( [ "company_id" ] );
         $product->product_name = $request->input( [ "product_name" ] );
         $product->price = $request->input( [ "price" ] );
-        $product->company = $request->input( [ "company" ] );
+        // $product->company = $request->input( [ "company" ] );
         $product->comment = $request->input( [ "comment" ] );
         $product->save();
 
@@ -113,15 +115,17 @@ class ProductController extends Controller {
 
     public function update( Request $request, Product $product ) {
         $request->validate( [
+            'company_id' => 'required|integer',
             'product_name' => 'required|max:20',
             'price' => 'required|integer',
-            'company' => 'required|integer',
+            // 'company' => 'required|integer',
             'comment' => 'required|max:140',
         ] );
 
+        $product->company_id = $request->input( [ "company_id" ] );
         $product->product_name = $request->input( [ "product_name" ] );
         $product->price = $request->input( [ "price" ] );
-        $product->company = $request->input( [ "company" ] );
+        // $product->company = $request->input( [ "company" ] );
         $product->comment = $request->input( [ "comment" ] );
         $product->save();
 
