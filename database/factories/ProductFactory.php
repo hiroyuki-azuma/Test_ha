@@ -19,7 +19,9 @@ class ProductFactory extends Factory
         return [
             'company_id' => $this->faker->numberBetween( $min = 1, $max = 4 ),
             'product_name' => $this->faker->realText( 10 ),
+            'img_path' => $this->faker->realText( 20 ),
             'price' => $this->faker->numberBetween( $min = 100, $max = 199 ),
+            'stock' => $this->faker->numberBetween( $min = 1, $max = 99 ),
             // 'company' => $this->faker->numberBetween( $min = 1, $max = 4 ),
             'comment' => $this->faker->realText( 20 ),
             'created_at' => date( 'Y-m-d H:i:s' ),

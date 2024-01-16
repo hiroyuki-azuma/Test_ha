@@ -41,8 +41,10 @@
     <table class="table table-bordered">
         <tr>
             <th>商品番号</th>
+            <th>商品画像</th>
             <th>ドリンク名</th>
             <th>価格</th>
+            <th>在庫数</th>
             <th>メーカー</th>
             <th></th>
             <th></th>
@@ -51,9 +53,11 @@
         @foreach ($products as $product)
         <tr>
             <td style="text-align:left">{{ $product->id }}</td>
+            <td style="text-align:left">{{ $product->price }}円</td>
             <td>{{ $product->product_name }}</td>
             <!-- <td><a href="{{ route('product.show',$product->id) }}">{{ $product->product_name }}</a></td> -->
             <td style="text-align:left">{{ $product->price }}円</td>
+            <td style="text-align:left">{{ $product->stock }}個</td>
             <!-- ↓ここのみCompanyテーブルからデータを持ってくる -->
             <td style="text-align:left">{{ $product->company->company_name }}</td>
             <td style="text-align:center">

@@ -14,8 +14,21 @@
 <form action="{{ route('product.update',$product->id) }}" method="POST">
     @method('PUT')
     @csrf
-     
-     <div class="row">
+    
+
+
+    <div class="row">
+
+        <!-- 商品画像 -->
+        <div class="col-12 mb-2 mt-2">
+            <div class="form-group">
+            <textarea class="form-control" style="height:100px" name="img_path" placeholder="商品画像">{{ $product->img_path }}</textarea>
+                @error('img_path')
+                <span style="color:red;">商品画像を140文字以内で入力してください</span>
+                @enderror
+            </div>
+        </div>
+
         <!-- 商品名 -->
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
@@ -36,13 +49,23 @@
             </div>
         </div>
 
+        <!-- 在庫数 -->
+        <div class="col-12 mb-2 mt-2">
+            <div class="form-group">
+                <input type="text" name="stock" value="{{ $product->stock }}" class="form-control" placeholder="在庫数">
+                @error('stock')
+                <span style="color:red;">在庫数を数字で入力してください</span>
+                @enderror
+            </div>
+        </div>
+
         <!-- メーカー -->
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
-                <select name="company" class="form-select">
+                <select name="company_id" class="form-select">
                     <option>分類を選択してください</otion>
                     @foreach ($companies as $company)
-                        <option value="{{ $company->id }}"@if($company->id==$product->company) selected @endif>{{ $company->company_name }}</otion>
+                        <option value="{{ $company->id }}"@if($company->id==$product->company_id) selected @endif>{{ $company->company_name }}</otion>
                     @endforeach
                 </select>
                 @error('company')

@@ -58,16 +58,18 @@ class ProductController extends Controller {
         $request->validate( [
             'company_id' => 'required|integer',
             'product_name' => 'required|max:20',
+            'img_path' => 'required|max:140',
             'price' => 'required|integer',
-            // 'company' => 'required|integer',
+            'stock' => 'required|integer',
             'comment' => 'required|max:140',
         ] );
 
         $product = new Product;
         $product->company_id = $request->input( [ "company_id" ] );
         $product->product_name = $request->input( [ "product_name" ] );
+        $product->img_path = $request->input( [ "img_path" ] );
         $product->price = $request->input( [ "price" ] );
-        // $product->company = $request->input( [ "company" ] );
+        $product->stock = $request->input( [ "stock" ] );
         $product->comment = $request->input( [ "comment" ] );
         $product->save();
 
@@ -117,15 +119,17 @@ class ProductController extends Controller {
         $request->validate( [
             'company_id' => 'required|integer',
             'product_name' => 'required|max:20',
+            'img_path' => 'required|max:140',
             'price' => 'required|integer',
-            // 'company' => 'required|integer',
+            'stock' => 'required|integer',
             'comment' => 'required|max:140',
         ] );
 
         $product->company_id = $request->input( [ "company_id" ] );
         $product->product_name = $request->input( [ "product_name" ] );
+        $product->img_path = $request->input( [ "img_path" ] );
         $product->price = $request->input( [ "price" ] );
-        // $product->company = $request->input( [ "company" ] );
+        $product->stock = $request->input( [ "stock" ] );
         $product->comment = $request->input( [ "comment" ] );
         $product->save();
 

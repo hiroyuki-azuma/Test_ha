@@ -15,6 +15,16 @@
      
      <div class="row">
 
+        <!-- ここは商品画像 -->
+        <div class="col-12 mb-2 mt-2">
+            <div class="form-group">
+                <input type="text" name="img_path" class="form-control" placeholder="商品画像">
+                @error('img_path')
+                <span style="color:red; float: left;">価格を半角数字で入力してください</span>
+                @enderror
+            </div>
+        </div>
+
         <!-- ここは名前 -->
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
@@ -35,6 +45,16 @@
             </div>
         </div>
 
+        <!-- ここは在庫数 -->
+        <div class="col-12 mb-2 mt-2">
+            <div class="form-group">
+                <input type="text" name="stock" class="form-control" placeholder="在庫数">
+                @error('stock')
+                <span style="color:red; float: left;">在庫数を半角数字で入力してください</span>
+                @enderror
+            </div>
+        </div>
+
         <!-- ここはコメント -->
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
@@ -48,7 +68,7 @@
         <!-- メーカー選択ここから -->
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
-                <select name="company" class="form-select">
+                <select name="company_id" class="form-select">
                     <option>分類を選択してください</otion>
                     @foreach ($companies as $company)
                         <option value="{{ $company->id }}">{{ $company->company_name }}</otion>

@@ -26,7 +26,7 @@
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
                 @foreach ($companies as $company)
-                    @if($company->id==$product->company) メーカー名： {{ $company->company_name }} @endif
+                    @if($company->id==$product->company_id) メーカー名： {{ $company->company_name }} @endif
                 @endforeach         
             </div>
         </div>
