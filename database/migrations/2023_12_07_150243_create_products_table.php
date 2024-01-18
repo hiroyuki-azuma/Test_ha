@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('company_id');
             $table->string('product_name');
-            $table->text('img_path');
+            $table->text('img_path')->nullable();
             $table->integer('price');
             $table->integer('stock');
             // $table->integer('company');

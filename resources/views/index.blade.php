@@ -53,7 +53,14 @@
         @foreach ($products as $product)
         <tr>
             <td style="text-align:left">{{ $product->id }}</td>
-            <td style="text-align:left">{{ $product->price }}円</td>
+
+            <td style="text-align:left">
+                @if($product->img_path)
+                    <div>(画像ファイル：{{$product->img_path}})</div>
+                    <img src="{{ asset('storage/images/'.$product->img_path)}}" class="mx-auto" style="height:50px;">
+                @endif
+            </td>
+
             <td>{{ $product->product_name }}</td>
             <!-- <td><a href="{{ route('product.show',$product->id) }}">{{ $product->product_name }}</a></td> -->
             <td style="text-align:left">{{ $product->price }}円</td>

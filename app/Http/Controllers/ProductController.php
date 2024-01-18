@@ -58,7 +58,7 @@ class ProductController extends Controller {
         $request->validate( [
             'company_id' => 'required|integer',
             'product_name' => 'required|max:20',
-            'img_path' => 'required|max:140',
+            'img_path'=>'image|max:1024',
             'price' => 'required|integer',
             'stock' => 'required|integer',
             'comment' => 'required|max:140',
@@ -67,10 +67,18 @@ class ProductController extends Controller {
         $product = new Product;
         $product->company_id = $request->input( [ "company_id" ] );
         $product->product_name = $request->input( [ "product_name" ] );
-        $product->img_path = $request->input( [ "img_path" ] );
         $product->price = $request->input( [ "price" ] );
         $product->stock = $request->input( [ "stock" ] );
         $product->comment = $request->input( [ "comment" ] );
+
+        // 画像保存用のソース
+        if (request('img_path')){
+            $name = request()->file('img_path')->getClientOriginalName();
+            request()->file('img_path')->move('storage/images', $name);
+            $product->img_path = $name;
+        }
+
+        
         $product->save();
 
         // return redirect()->route('products.index');
@@ -119,7 +127,7 @@ class ProductController extends Controller {
         $request->validate( [
             'company_id' => 'required|integer',
             'product_name' => 'required|max:20',
-            'img_path' => 'required|max:140',
+            'img_path'=>'image|max:1024',
             'price' => 'required|integer',
             'stock' => 'required|integer',
             'comment' => 'required|max:140',
@@ -127,10 +135,17 @@ class ProductController extends Controller {
 
         $product->company_id = $request->input( [ "company_id" ] );
         $product->product_name = $request->input( [ "product_name" ] );
-        $product->img_path = $request->input( [ "img_path" ] );
         $product->price = $request->input( [ "price" ] );
         $product->stock = $request->input( [ "stock" ] );
         $product->comment = $request->input( [ "comment" ] );
+
+        // 画像保存用のソース
+        if (request('img_path')){
+            $name = request()->file('img_path')->getClientOriginalName();
+            request()->file('img_path')->move('storage/images', $name);
+            $product->img_path = $name;
+        }
+
         $product->save();
 
         // return redirect()->route('products.index');

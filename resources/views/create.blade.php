@@ -10,24 +10,18 @@
 </div>
  
 <div style="text-align:center;">
-<form action="{{ route('product.store') }}" method="POST">
+<form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
      
      <div class="row">
 
-        <!-- ここは商品画像 -->
-        <div class="col-12 mb-2 mt-2">
-            <div class="form-group">
-                <input type="text" name="img_path" class="form-control" placeholder="商品画像">
-                @error('img_path')
-                <span style="color:red; float: left;">価格を半角数字で入力してください</span>
-                @enderror
-            </div>
-        </div>
 
         <!-- ここは名前 -->
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
+            <h4 style="text-align:left">商品名</h4>
+            <h4>商品名</h4>
+
                 <input type="text" name="product_name" class="form-control" placeholder="名前">
                 @error('product_name')
                 <span style="color:red; float: left;">名前を20文字以内で入力してください</span>
@@ -35,8 +29,25 @@
             </div>
         </div>
 
+        <!-- メーカー選択ここから -->
+        <div class="col-12 mb-2 mt-2">
+            <h4 style="text-align:left">メーカー名</h4>
+            <div class="form-group">
+                <select name="company_id" class="form-select">
+                    <option>メーカー名を選択してください</otion>
+                    @foreach ($companies as $company)
+                        <option value="{{ $company->id }}">{{ $company->company_name }}</otion>
+                    @endforeach
+                </select>
+                @error('company')
+                <span style="color:red; float: left;">メーカー名を選択してください</span>
+                @enderror
+            </div>
+        </div>
+
         <!-- ここは価格 -->
         <div class="col-12 mb-2 mt-2">
+            <h4 style="text-align:left">価格</h4>
             <div class="form-group">
                 <input type="text" name="price" class="form-control" placeholder="価格">
                 @error('price')
@@ -47,6 +58,7 @@
 
         <!-- ここは在庫数 -->
         <div class="col-12 mb-2 mt-2">
+            <h4 style="text-align:left">在庫数</h4>
             <div class="form-group">
                 <input type="text" name="stock" class="form-control" placeholder="在庫数">
                 @error('stock')
@@ -57,6 +69,7 @@
 
         <!-- ここはコメント -->
         <div class="col-12 mb-2 mt-2">
+            <h4 style="text-align:left">コメント</h4>
             <div class="form-group">
             <textarea class="form-control" style="height:100px" name="comment" placeholder="コメント"></textarea>
             @error('comment')
@@ -65,18 +78,16 @@
             </div>
         </div>
 
-        <!-- メーカー選択ここから -->
-        <div class="col-12 mb-2 mt-2">
+
+
+        <!-- ここは商品画像 -->
+        <div style="text-align:left;" class="col-12 mb-2 mt-2">
             <div class="form-group">
-                <select name="company_id" class="form-select">
-                    <option>分類を選択してください</otion>
-                    @foreach ($companies as $company)
-                        <option value="{{ $company->id }}">{{ $company->company_name }}</otion>
-                    @endforeach
-                </select>
-                @error('company')
-                <span style="color:red; float: left;">メーカーを選択してください</span>
-                @enderror
+            <h4 style="text-align:left">商品画像</h4>
+                <label for="img_path" class="font-semibold leading-none mt-4">商品画像 （1MBまで）</label>
+                <div>
+                    <input id="img_path" type="file" name="img_path">
+                </div>
             </div>
         </div>
         
