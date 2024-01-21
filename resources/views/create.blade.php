@@ -9,90 +9,82 @@
     </div>
 </div>
  
-<div style="text-align:center;">
 <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
      
-     <div class="row">
-
-
-        <!-- ここは名前 -->
-        <div class="col-12 mb-2 mt-2">
-            <div class="form-group">
-            <h4 style="text-align:left">商品名</h4>
-            <h4>商品名</h4>
-
-                <input type="text" name="product_name" class="form-control" placeholder="名前">
-                @error('product_name')
+    <!-- 商品名 -->
+    <div class="mb-3">
+        <dl style="display: flex;flex-wrap: wrap; margin-top: 60px; margin-bottom: 1rem;">
+            <dt style=" width: 30%;"><label for="product_name" class="form-label">商品名</label></dt>
+            <dd style=" width: 70%;"><input type="text" name="product_name" class="form-control" placeholder="名前"></dd>
+            @error('product_name')
                 <span style="color:red; float: left;">名前を20文字以内で入力してください</span>
-                @enderror
-            </div>
-        </div>
+            @enderror
+        </dl>
+    </div>
 
-        <!-- メーカー選択ここから -->
-        <div class="col-12 mb-2 mt-2">
-            <h4 style="text-align:left">メーカー名</h4>
-            <div class="form-group">
+    <!-- メーカー名 -->
+    <div class="mb-3">
+        <dl style="display: flex;flex-wrap: wrap; margin-bottom: 1rem;">
+            <dt style=" width: 30%;"><label for="price" class="form-label">メーカー名</label></dt>
+            <dd style=" width: 70%;">
                 <select name="company_id" class="form-select">
                     <option>メーカー名を選択してください</otion>
                     @foreach ($companies as $company)
                         <option value="{{ $company->id }}">{{ $company->company_name }}</otion>
                     @endforeach
                 </select>
-                @error('company')
+            </dd>
+            @error('company')
                 <span style="color:red; float: left;">メーカー名を選択してください</span>
-                @enderror
-            </div>
-        </div>
+            @enderror
+        </dl>
+    </div>
 
-        <!-- ここは価格 -->
-        <div class="col-12 mb-2 mt-2">
-            <h4 style="text-align:left">価格</h4>
-            <div class="form-group">
-                <input type="text" name="price" class="form-control" placeholder="価格">
-                @error('price')
+    <!-- 価格 -->
+    <div class="mb-3">
+        <dl style="display: flex;flex-wrap: wrap; margin-bottom: 1rem;">
+            <dt style=" width: 30%;"><label for="price" class="form-label">価格</label></dt>
+            <dd style=" width: 70%;"><input type="text" name="price" class="form-control" placeholder="価格"></dd>
+            @error('price')
                 <span style="color:red; float: left;">価格を半角数字で入力してください</span>
-                @enderror
-            </div>
-        </div>
+            @enderror
+        </dl>
+    </div>
 
-        <!-- ここは在庫数 -->
-        <div class="col-12 mb-2 mt-2">
-            <h4 style="text-align:left">在庫数</h4>
-            <div class="form-group">
-                <input type="text" name="stock" class="form-control" placeholder="在庫数">
-                @error('stock')
+    <!-- 在庫数 -->
+    <div class="mb-3">
+        <dl style="display: flex;flex-wrap: wrap; margin-bottom: 1rem;">
+            <dt style=" width: 30%;"><label for="stock" class="form-label">在庫数</label></dt>
+            <dd style=" width: 70%;"><input type="text" name="stock" class="form-control" placeholder="在庫数"></dd>
+            @error('stock')
                 <span style="color:red; float: left;">在庫数を半角数字で入力してください</span>
-                @enderror
-            </div>
-        </div>
+            @enderror
+        </dl>
+    </div>
 
-        <!-- ここはコメント -->
-        <div class="col-12 mb-2 mt-2">
-            <h4 style="text-align:left">コメント</h4>
-            <div class="form-group">
-            <textarea class="form-control" style="height:100px" name="comment" placeholder="コメント"></textarea>
+    <!-- コメント -->
+    <div class="mb-3">
+        <dl style="display: flex;flex-wrap: wrap; margin-bottom: 1rem;">
+            <dt style=" width: 30%;"><label for="comment" class="form-label">コメント</label></dt>
+            <dd style=" width: 70%;"><textarea class="form-control" style="height:100px" name="comment" placeholder="コメント"></textarea></dd>
             @error('comment')
                 <span style="color:red; float: left;">コメントを140文字以内で入力してください</span>
-                @enderror
-            </div>
-        </div>
+            @enderror
+        </dl>
+    </div>
 
+    <!-- 商品画像 -->
+    <div class="mb-3">
+        <dl style="display: flex;flex-wrap: wrap; margin-bottom: 1rem;">
+            <dt style=" width: 30%;"><label for="img_path" class="font-semibold leading-none mt-4" style=" margin-top: -1.5rem!important;">商品画像 （1MBまで）</label></dt>
+            <dd style=" width: 70%;"><input id="img_path" type="file" name="img_path"></dd>
+        </dl>
+    </div>
 
-
-        <!-- ここは商品画像 -->
-        <div style="text-align:left;" class="col-12 mb-2 mt-2">
-            <div class="form-group">
-            <h4 style="text-align:left">商品画像</h4>
-                <label for="img_path" class="font-semibold leading-none mt-4">商品画像 （1MBまで）</label>
-                <div>
-                    <input id="img_path" type="file" name="img_path">
-                </div>
-            </div>
-        </div>
-        
+     
         <!-- ボタンここから -->
-        <div class="pull-right">
+        <div class="pull-right" style="text-align:center;">
             <button type="submit" class="btn btn-primary btn-lg mt-2">登録</button>
 
             <button type="button"  class="btn btn-warning btn-lg mt-2" >
@@ -100,7 +92,5 @@
             </button>
         </div>
 
-    </div>      
 </form>
-</div>
 @endsection

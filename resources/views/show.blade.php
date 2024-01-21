@@ -4,9 +4,8 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2 style="font-size:2rem;">商品詳細画面(ここはshow.blade.php)</h2>
+            <h2 style="font-size:2rem; margin-bottom: 60px;">商品詳細画面(ここはshow.blade.php)</h2>
             <!-- <h2 style="font-size:2rem;text-align:center;">商品詳細画面(ここはshow.blade.php)</h2> -->
-
         </div>
 
     </div>
@@ -15,54 +14,58 @@
 <div style="text-align:left;">
 <!-- ここはeditと違う中身 -->
     <div class="row">
+    
+        <!-- 商品ID -->
+        <dl class="row mt-3" >
+            <dt class="col-sm-3">商品ID</dt>
+            <dd class="col-sm-9">{{ $product->id }}</dd>
+        </dl>
 
-        <div class="col-12 mb-2 mt-2">
-            <h3 class="form-group">ID:{{ $product->id }}</h3>
-        </div>
-
-        <div class="col-12 mb-2 mt-2">
-            <div class="form-group">
-            <h4>商品画像
+        <!-- 商品画像 -->
+        <dl class="row mt-3" >
+            <dt class="col-sm-3">商品画像</dt>
+            <dd class="col-sm-9">
                 @if($product->img_path)
-                    <div>(画像ファイル：{{$product->img_path}})</div>
                     <img src="{{ asset('storage/images/'.$product->img_path)}}" class="mx-auto" style="height:50px;">
-                @endif   </h4>           
-            </div>
-        </div>
+                    <div>(画像ファイル：{{$product->img_path}})</div>
+                @endif
+            </dd>
+        </dl>
 
+        <!-- 商品名 -->
+        <dl class="row mt-3" >
+            <dt class="col-sm-3">商品名</dt>
+            <dd class="col-sm-9">{{ $product->product_name }}</dd>
+        </dl>
 
+        <!-- メーカー名 -->
+        <dl class="row mt-3" >
+            <dt class="col-sm-3">メーカー名</dt>
+            <dd class="col-sm-9">
+                 @foreach ($companies as $company)
+                        @if($company->id==$product->company_id)<h6>{{ $company->company_name }}</h6>@endif
+                @endforeach
+            </dd>
+        </dl>
 
-        <div class="col-12 mb-2 mt-2">
-            <div class="form-group">
-                <h4>商品名：{{ $product->product_name }}</h4>              
-            </div>
-        </div>
+        <!-- 価格 -->
+        <dl class="row mt-3" >
+            <dt class="col-sm-3">価格</dt>
+            <dd class="col-sm-9">{{ $product->price }}</dd>
+        </dl>
 
-        <div class="col-12 mb-2 mt-2">
-            <div class="form-group">
-                @foreach ($companies as $company)
-                    @if($company->id==$product->company_id)<h4> メーカー名： {{ $company->company_name }}</h4>@endif
-                @endforeach         
-            </div>
-        </div>
+        <!-- 在庫数 -->
+        <dl class="row mt-3" >
+            <dt class="col-sm-3">在庫数</dt>
+            <dd class="col-sm-9">{{ $product->stock }}</dd>
+        </dl>
 
-        <div class="col-12 mb-2 mt-2">
-            <div class="form-group">
-                <h4>価格：{{ $product->price }}</h4>            
-            </div>
-        </div>
+        <!-- コメント -->
+        <dl class="row mt-3" >
+            <dt class="col-sm-3">コメント</dt>
+            <dd class="col-sm-9">{{ $product->comment }}</dd>
+        </dl>
 
-        <div class="col-12 mb-2 mt-2">
-            <div class="form-group">
-                <h4>在庫数：{{ $product->stock }}</h4>          
-            </div>
-        </div>
-
-        <div class="col-12 mb-2 mt-2">
-            <div class="form-group">
-                <h4>コメント：{{ $product->comment }}</h4>          
-            </div>
-        </div>
     </div>
 </div>
 

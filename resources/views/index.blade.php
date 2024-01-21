@@ -11,9 +11,10 @@
 
         <!-- //* 検索機能ここから *// -->
         <div class="col-12 mb-1 mt-5">
-        <form action="{{ route('products.index') }}" method="GET">
-            <input type="text" name="keyword" value="{{ $keyword }}">
+            <form action="{{ route('products.index') }}" method="GET">
+                <input type="text" name="keyword" value="{{ $keyword }}">
                 <input type="submit" value="検索">
+
             </form>
         </div>
         <!-- //*検索機能ここまで*// -->

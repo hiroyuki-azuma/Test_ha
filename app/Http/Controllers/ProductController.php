@@ -22,6 +22,8 @@ class ProductController extends Controller {
 
         $query = Product::query();
 
+        
+
 
         if(!empty($keyword)) {
             $query->where('product_name', 'LIKE', "%{$keyword}%")
