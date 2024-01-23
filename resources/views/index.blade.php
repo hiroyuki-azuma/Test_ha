@@ -12,12 +12,23 @@
         <!-- //* 検索機能ここから *// -->
         <div class="col-12 mb-1 mt-5">
             <form action="{{ route('products.index') }}" method="GET">
-                <input type="text" name="keyword" value="{{ $keyword }}">
+                <input type="text" name="keyword" value="{{ $keyword }}" placeholder="検索したい商品名">
+                <!-- <input type="submit" value="検索"> -->
+
+                <select name="company_id" class="form-select">
+                    <option>メーカー名を選択してください</otion>
+                    @foreach ($companies as $company)
+                        <option value="{{ $company->id }}">{{ $company->company_name }}</otion>
+                    @endforeach
+                </select>
+
                 <input type="submit" value="検索">
 
             </form>
         </div>
         <!-- //*検索機能ここまで*// -->
+
+
 
 
 

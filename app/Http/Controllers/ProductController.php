@@ -19,12 +19,9 @@ class ProductController extends Controller {
 
         
         $keyword = $request->input('keyword');
-
         $query = Product::query();
 
         
-
-
         if(!empty($keyword)) {
             $query->where('product_name', 'LIKE', "%{$keyword}%")
                 ->orWhere('company_id', 'LIKE', "%{$keyword}%");
@@ -32,11 +29,16 @@ class ProductController extends Controller {
 
         $products = $query->get();
 
-        
+        // セレクトボックス用に追記
+        $companies = Company::all();
 
-        return view('index', compact('products', 'keyword'));
+
+        //下の文は セレクトボックス用に追記
+        return view('index', compact('products', 'keyword'))
+        ->with( 'companies', $companies );
+
     }
-
+    
     /**
     * Show the form for creating a new resource.
     *
