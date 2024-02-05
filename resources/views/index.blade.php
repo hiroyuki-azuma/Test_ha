@@ -16,9 +16,9 @@
                 <!-- <input type="submit" value="検索"> -->
 
                 <select name="company_id" class="form-select">
-                    <option>メーカー名を選択してください</otion>
+                    <option>メーカー名を選択してください</option>
                     @foreach ($companies as $company)
-                        <option value="{{ $company->id }}">{{ $company->company_name }}</otion>
+                        <option value="{{ $company->id }}">{{ $company->company_name }}</option>
                     @endforeach
                 </select>
 

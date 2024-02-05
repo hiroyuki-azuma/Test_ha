@@ -29,9 +29,9 @@
             <dt style=" width: 30%;"><label for="price" class="form-label">メーカー名</label></dt>
             <dd style=" width: 70%;">
                 <select name="company_id" class="form-select">
-                    <option>メーカー名を選択してください</otion>
+                    <option>メーカー名を選択してください</option>
                     @foreach ($companies as $company)
-                        <option value="{{ $company->id }}">{{ $company->company_name }}</otion>
+                        <option value="{{ $company->id }}">{{ $company->company_name }}</option>
                     @endforeach
                 </select>
             </dd>

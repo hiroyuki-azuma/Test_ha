@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 // 下記は追記しました
 use App\Models\Company;
 
-
 class ProductController extends Controller {
     /**
     * Display a listing of the resource.
@@ -15,30 +14,35 @@ class ProductController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function index(Request $request) {
+    public function index( Request $request ) {
 
-        
-        $keyword = $request->input('keyword');
+        // キーワード検索フォームに入力された値を取得
+        $keyword = $request->input( 'keyword' );
+        // セレクトボックス検索フォームに入力された値を取得。Companyのデータを全部持ってくる。
+        $company_id = $request->input( 'company_id' );
+
         $query = Product::query();
 
-        
-        if(!empty($keyword)) {
-            $query->where('product_name', 'LIKE', "%{$keyword}%")
-                ->orWhere('company_id', 'LIKE', "%{$keyword}%");
+        // もしキーワード検索がされたら、m_productsテーブルから一致する商品を$queryに代入
+        if ( !empty( $keyword ) ) {
+            $query->where( 'product_name', 'LIKE', "%{$keyword}%" )
+            ->orWhere( 'company_id', 'LIKE', "%{$keyword}%" );
+        }
+
+        //メーカー名が選択された場合、companiesテーブルからcompany_idが一致する商品を$queryに代入
+        if ( !empty( $company_id ) ) {
+            $query->where( 'company_id', 'LIKE', $company_id );
         }
 
         $products = $query->get();
-
-        // セレクトボックス用に追記
         $companies = Company::all();
+        // $products = Product::all();
 
+        // dd( $company_id );
 
-        //下の文は セレクトボックス用に追記
-        return view('index', compact('products', 'keyword'))
-        ->with( 'companies', $companies );
-
+        return view( 'index', compact( 'products', 'keyword', 'companies', 'company_id' ) );
     }
-    
+
     /**
     * Show the form for creating a new resource.
     *
@@ -69,27 +73,25 @@ class ProductController extends Controller {
         ] );
 
         $product = new Product;
-        $product->company_id = $request->input( [ "company_id" ] );
-        $product->product_name = $request->input( [ "product_name" ] );
-        $product->price = $request->input( [ "price" ] );
-        $product->stock = $request->input( [ "stock" ] );
-        $product->comment = $request->input( [ "comment" ] );
+        $product->company_id = $request->input( [ 'company_id' ] );
+        $product->product_name = $request->input( [ 'product_name' ] );
+        $product->price = $request->input( [ 'price' ] );
+        $product->stock = $request->input( [ 'stock' ] );
+        $product->comment = $request->input( [ 'comment' ] );
 
         // 画像保存用のソース
-        if (request('img_path')){
-            $name = request()->file('img_path')->getClientOriginalName();
-            request()->file('img_path')->move('storage/images', $name);
+        if ( request( 'img_path' ) ) {
+            $name = request()->file( 'img_path' )->getClientOriginalName();
+            request()->file( 'img_path' )->move( 'storage/images', $name );
             $product->img_path = $name;
         }
 
-        
         $product->save();
 
-        // return redirect()->route('products.index');
-        
-        // 成功しましたメッセージ
-        return redirect()->route('products.index')->with('success','商品を登録しました');
+        // return redirect()->route( 'products.index' );
 
+        // 成功しましたメッセージ
+        return redirect()->route( 'products.index' )->with( 'success', '商品を登録しました' );
 
     }
 
@@ -102,8 +104,8 @@ class ProductController extends Controller {
 
     public function show( Product $product ) {
         $companies = Company::all();
-        return view('show',compact('product'))
-        ->with('companies',$companies);
+        return view( 'show', compact( 'product' ) )
+        ->with( 'companies', $companies );
     }
 
     /**
@@ -115,8 +117,8 @@ class ProductController extends Controller {
 
     public function edit( Product $product ) {
         $companies = Company::all();
-        return view('edit',compact('product'))
-        ->with('companies',$companies);
+        return view( 'edit', compact( 'product' ) )
+        ->with( 'companies', $companies );
     }
 
     /**
@@ -137,24 +139,24 @@ class ProductController extends Controller {
             'comment' => 'required|max:140',
         ] );
 
-        $product->company_id = $request->input( [ "company_id" ] );
-        $product->product_name = $request->input( [ "product_name" ] );
-        $product->price = $request->input( [ "price" ] );
-        $product->stock = $request->input( [ "stock" ] );
-        $product->comment = $request->input( [ "comment" ] );
+        $product->company_id = $request->input( [ 'company_id' ] );
+        $product->product_name = $request->input( [ 'product_name' ] );
+        $product->price = $request->input( [ 'price' ] );
+        $product->stock = $request->input( [ 'stock' ] );
+        $product->comment = $request->input( [ 'comment' ] );
 
         // 画像保存用のソース
-        if (request('img_path')){
-            $name = request()->file('img_path')->getClientOriginalName();
-            request()->file('img_path')->move('storage/images', $name);
+        if ( request( 'img_path' ) ) {
+            $name = request()->file( 'img_path' )->getClientOriginalName();
+            request()->file( 'img_path' )->move( 'storage/images', $name );
             $product->img_path = $name;
         }
 
         $product->save();
 
-        // return redirect()->route('products.index');
+        // return redirect()->route( 'products.index' );
         // 成功しましたメッセージ
-        return redirect()->route('products.index')->with('success','商品を更新しました');
+        return redirect()->route( 'products.index' )->with( 'success', '商品を更新しました' );
     }
 
     /**
@@ -166,7 +168,7 @@ class ProductController extends Controller {
 
     public function destroy( Product $product ) {
         $product->delete();
-        return redirect()->route('products.index')
-        ->with('success','商品'.$product->product_name.'を削除しました');
+        return redirect()->route( 'products.index' )
+        ->with( 'success', '商品'.$product->product_name.'を削除しました' );
     }
 }
