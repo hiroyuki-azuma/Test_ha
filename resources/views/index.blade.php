@@ -16,9 +16,11 @@
                 <!-- <input type="submit" value="検索"> -->
 
                 <select name="company_id" class="form-select">
-                    <option>メーカー名を選択してください</option>
+                    <option value="">メーカー名を選択してください</option>
                     @foreach ($companies as $company)
-                        <option value="{{ $company->id }}">{{ $company->company_name }}</option>
+                    <!-- セレクトボックスのオプション「メーカーを選択してください」にvalueが設定されていないため、何も選択していないと値が「メーカーを選択してください」になってしまうため、value=""で対応。 -->
+                        <!-- <option value="{{ $company->id }}">{{ $company->company_name }}</option> -->
+                        <option value="{{ $company->id }}" @if($company->id===$company->id) selected @endif>{{ $company->company_name }}</option>
                     @endforeach
                 </select>
 

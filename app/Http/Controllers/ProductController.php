@@ -18,15 +18,14 @@ class ProductController extends Controller {
 
         // キーワード検索フォームに入力された値を取得
         $keyword = $request->input( 'keyword' );
-        // セレクトボックス検索フォームに入力された値を取得。Companyのデータを全部持ってくる。
+        // セレクトボックス検索フォームに入力された値を取得。
         $company_id = $request->input( 'company_id' );
 
         $query = Product::query();
 
-        // もしキーワード検索がされたら、m_productsテーブルから一致する商品を$queryに代入
+        // もしキーワード検索がされたら、productsテーブルから一致する商品を$queryに代入
         if ( !empty( $keyword ) ) {
-            $query->where( 'product_name', 'LIKE', "%{$keyword}%" )
-            ->orWhere( 'company_id', 'LIKE', "%{$keyword}%" );
+            $query->where( 'product_name', 'LIKE', "%{$keyword}%" );
         }
 
         //メーカー名が選択された場合、companiesテーブルからcompany_idが一致する商品を$queryに代入
@@ -34,13 +33,19 @@ class ProductController extends Controller {
             $query->where( 'company_id', 'LIKE', $company_id );
         }
 
+        //下記を表示させるとキーワード検索とプルダウンは機能する。全件表示されない。キーワード検索ボックスに何もいれないで「検索」ボタンを押すとデータを引っ張ってこなくなる。
         $products = $query->get();
-        $companies = Company::all();
+
+        // 下記を表示させると全件表示されるが検索できなくなる。
         // $products = Product::all();
+
+        // Companyのデータを全部持ってくる。
+        $companies = Company::all();
+
 
         // dd( $company_id );
 
-        return view( 'index', compact( 'products', 'keyword', 'companies', 'company_id' ) );
+        return view( 'index', compact( 'products', 'keyword', 'companies', 'company_id') );
     }
 
     /**
