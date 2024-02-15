@@ -30,7 +30,7 @@ class ProductController extends Controller {
 
         //メーカー名が選択された場合、companiesテーブルからcompany_idが一致する商品を$queryに代入
         if ( !empty( $company_id ) ) {
-            $query->where( 'company_id', 'LIKE', $company_id );
+            $query->where( 'company_id', '=', $company_id );
         }
 
         //下記を表示させるとキーワード検索とプルダウンは機能する。全件表示されない。キーワード検索ボックスに何もいれないで「検索」ボタンを押すとデータを引っ張ってこなくなる。
