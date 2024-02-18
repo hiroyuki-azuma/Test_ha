@@ -5,7 +5,8 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="text-left">
-                <h2 style="font-size:2rem;">商品一覧ページ（ここはindex.blade.php）</h2>
+                <h2 style="font-size:2rem;">商品一覧画面</h2>
+                <!-- <h2 style="font-size:2rem;">商品一覧ページ（ここはindex.blade.php）</h2> -->
             </div>
 
 

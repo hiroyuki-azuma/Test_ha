@@ -4,7 +4,8 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2 style="font-size:2rem; margin-bottom: 60px;">商品詳細画面(ここはshow.blade.php)</h2>
+            <h2 style="font-size:2rem; margin-bottom: 60px;">商品詳細画面</h2>
+            <!-- <h2 style="font-size:2rem; margin-bottom: 60px;">商品詳細画面(ここはshow.blade.php)</h2> -->
             <!-- <h2 style="font-size:2rem;text-align:center;">商品詳細画面(ここはshow.blade.php)</h2> -->
         </div>
 
