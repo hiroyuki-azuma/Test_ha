@@ -33,17 +33,11 @@ class ProductController extends Controller {
             $query->where( 'company_id', '=', $company_id );
         }
 
-        //下記を表示させるとキーワード検索とプルダウンは機能する。全件表示されない。キーワード検索ボックスに何もいれないで「検索」ボタンを押すとデータを引っ張ってこなくなる。
+    
         $products = $query->get();
-
-        // 下記を表示させると全件表示されるが検索できなくなる。
-        // $products = Product::all();
 
         // Companyのデータを全部持ってくる。
         $companies = Company::all();
-
-
-        // dd( $company_id );
 
         return view( 'index', compact( 'products', 'keyword', 'companies', 'company_id') );
     }
@@ -54,10 +48,41 @@ class ProductController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function create() {
+    public function create(Request $request) {
         $companies = Company::all();
         return view( 'create' )
         ->with( 'companies', $companies );
+
+        try {
+            // トランザクションの開始
+            \DB::beginTransaction();
+
+            if ($request->hasFile('image')) {
+                // 画像の保存処理 成功したらファイル名 失敗したら例外を返す
+                $image_path = Company::IMAGE_DIR . Company::saveImage($request->file('image'));
+            }
+
+            // データの作成（この時点ではDBには保存されない）
+            $companies = Company::make($request->all());
+            $companies->image_path = $image_path ?? '';
+
+            // 作成したデータをDBに保存 失敗したら例外を返す
+            $companies->saveOrFail();
+
+            // 全ての保存処理が成功したので処理を確定する
+            \DB::commit();
+
+            return ['message' => '保存に成功しました。'];
+        } catch (\Throwable $e) {
+            // 例外が起きたらロールバックを行う
+            \DB::rollback();
+
+            // 失敗した原因をログに残す
+            \Log::error($e);
+
+            // フロントにエラーを通知
+            throw $e;
+        }
     }
 
     /**
@@ -92,8 +117,6 @@ class ProductController extends Controller {
         }
 
         $product->save();
-
-        // return redirect()->route( 'products.index' );
 
         // 成功しましたメッセージ
         return redirect()->route( 'products.index' )->with( 'success', '商品を登録しました' );
@@ -159,9 +182,45 @@ class ProductController extends Controller {
 
         $product->save();
 
-        // return redirect()->route( 'products.index' );
         // 成功しましたメッセージ
         return redirect()->route( 'products.index' )->with( 'success', '商品を更新しました' );
+
+        try {
+            // トランザクションの開始
+            \DB::beginTransaction();
+
+            // 更新対象の商品を検索
+            $product = Product::findOrFail($id);
+
+            if ($request->hasFile('image')) {
+                // 画像の更新処理 成功したらファイル名 失敗したら例外を返す
+                $image_path = Product::IMAGE_DIR . Product::updateImage($request->file('image'), $product->image_path);
+            }
+
+            // データの更新（この時点ではDBのデータは更新されない）
+            $product->fill($request->all());
+            $product->image_path = $image_path ?? '';
+
+            // 更新したデータをDBに保存 失敗したら例外を返す
+            $product->saveOrFail();
+
+            // 全ての更新処理が成功したので処理を確定する
+            \DB::commit();
+
+            return ['message' => '更新に成功しました。'];
+        } catch (ModelNotFoundException $e) {
+            // データが見つからなかっただけならロギング不要
+            throw $e;
+        } catch (\Throwable $e) {
+            // 例外が起きたらロールバックを行う
+            \DB::rollback();
+
+            // 失敗した原因をログに残す
+            \Log::error($e);
+
+            // フロントにエラーを通知
+            throw $e;
+        }
     }
 
     /**
@@ -175,5 +234,14 @@ class ProductController extends Controller {
         $product->delete();
         return redirect()->route( 'products.index' )
         ->with( 'success', '商品'.$product->product_name.'を削除しました' );
+
+
+        try {
+            Product::destroy($product);
+            return ['message' => '削除しました。'];
+        } catch (\Throwable $e) {
+            \Log::error($e);
+            throw $e;
+        }
     }
 }
