@@ -34,15 +34,14 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+// 非同期処理用としても活用
 Route::get('/products', 'App\Http\Controllers\ProductController@index')->name('products.index');
-
 
 Route::get('/products/create', 'App\Http\Controllers\ProductController@create')->name('product.create');
 // 下はeditに飛ばす為にコメントアウトした
 Route::post('/products/store/', 'App\Http\Controllers\ProductController@store')->name('product.store');
 
 
-// 下はeditに飛ばす為にコメントアウトしたpostじゃなくてputのままでいいのかは自信ない
 Route::get('/products/edit/{product}', 'App\Http\Controllers\ProductController@edit')->name('product.edit');
 
 Route::put('/products/edit/{product}','App\Http\Controllers\ProductController@update')->name('product.update');
@@ -50,3 +49,7 @@ Route::put('/products/edit/{product}','App\Http\Controllers\ProductController@up
 Route::get('/products/show/{product}', 'App\Http\Controllers\ProductController@show')->name('product.show');
 
 Route::delete('/products/{product}','App\Http\Controllers\ProductController@destroy')->name('product.destroy');
+
+
+
+

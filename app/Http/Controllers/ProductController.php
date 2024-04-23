@@ -32,7 +32,6 @@ class ProductController extends Controller {
         if ( !empty( $company_id ) ) {
             $query->where( 'company_id', '=', $company_id );
         }
-
     
         $products = $query->get();
 
@@ -40,7 +39,30 @@ class ProductController extends Controller {
         $companies = Company::all();
 
         return view( 'index', compact( 'products', 'keyword', 'companies', 'company_id') );
+        // 非同期処理用に追記
+        return response()->json($products,$companies);
+
     }
+
+
+    public function getUsersBySearchName($userName)
+    {
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
     * Show the form for creating a new resource.

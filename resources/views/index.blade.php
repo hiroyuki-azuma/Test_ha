@@ -24,7 +24,8 @@
                     @endforeach
                 </select>
 
-                <input type="submit" value="検索">
+                <!-- 非同期処理用にclass="form-btn"を追記 -->
+                <input type="submit" value="検索" class="form-btn">
 
             </form>
         </div>
