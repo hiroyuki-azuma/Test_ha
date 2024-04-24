@@ -5,15 +5,39 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="text-left">
-                <h2 style="font-size:2rem;">商品一覧画面</h2>
+                <h2 style="font-size:2rem; margin-bottom: 100px;">商品一覧画面</h2>
             </div>
 
+            <h4>検索条件で絞り込み</h4>
 
         <!-- //* 検索機能ここから *// -->
-        <div class="col-12 mb-1 mt-5">
-            <form action="{{ route('products.index') }}" method="GET">
-                <input type="text" name="keyword" value="{{ $keyword }}" placeholder="検索したい商品名">
-                <!-- <input type="submit" value="検索"> -->
+            <form action="{{ route('products.index') }}" method="GET" class="row g-3">
+
+                <!-- キーワード検索の入力欄 -->
+                <div class="col-sm-12 col-md-3">
+                    <input type="text" name="keyword" value="{{ $keyword }}" placeholder="検索したい商品名">
+                </div>
+
+                <!-- 最小価格の入力欄 -->
+                <div class="col-sm-12 col-md-2">
+                    <input type="number" name="min_price"  placeholder="最小価格" value="{{ request('min_price') }}">
+                </div>
+
+                <!-- 最大価格の入力欄 -->
+                <div class="col-sm-12 col-md-2">
+                    <input type="number" name="max_price"  placeholder="最大価格" value="{{ request('max_price') }}">
+                </div>
+
+                <!-- 最小在庫数の入力欄 -->
+                <div class="col-sm-12 col-md-2">
+                    <input type="number" name="min_stock"  placeholder="最小在庫" value="{{ request('min_stock') }}">
+                </div>
+
+                <!-- 最大在庫数の入力欄 -->
+                <div class="col-sm-12 col-md-2">
+                    <input type="number" name="max_stock"  placeholder="最大在庫" value="{{ request('max_stock') }}">
+                </div>
+
 
                 <select name="company_id" class="form-select">
                     <option value="">メーカー名を選択してください</option>
@@ -24,11 +48,16 @@
                     @endforeach
                 </select>
 
-                <!-- 非同期処理用にclass="form-btn"を追記 -->
-                <input type="submit" value="検索" class="form-btn">
+                <!-- 非同期処理用にid="form-btn"を追記 -->
+                <div class="col-sm-12 col-md-1">
+                    <!-- <input type="submit" value="検索" class="form-btn"> -->
+                    <button class="btn btn-outline-secondary" type="submit" id="form-btn">検索</button>
+                </div>
 
             </form>
-        </div>
+
+                <!-- 検索条件をリセットするためのリンクボタン -->
+                <a href="{{ route('products.index') }}" class="btn btn-success mt-3">検索条件を元に戻す</a>
         <!-- //*検索機能ここまで*// -->
 
             <div class="text-left" style="text-align:right;">
@@ -86,7 +115,7 @@
                 <form action="{{ route('product.destroy',$product->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("削除しますか？");'>削除</button>
+                    <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("削除しますか？");' id="delete-btn">削除</button>
                 </form>
             </td>
             <!-- 削除ボタン追記ここまで -->

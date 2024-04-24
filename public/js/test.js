@@ -2,7 +2,7 @@ console.log('Hello World');
 
 
 // 検索ボタンをクリックしたら発火させる
-$("form-btn").on("click",function(){
+$('#form-btn').on("click",function(){
     $.ajax({
   type:"get",       
   url: '/products', //web.phpのURLと同じ形にする
@@ -16,7 +16,7 @@ $("form-btn").on("click",function(){
 
 
 /*
-$("form-btn").on("click",function(){
+$('#delete-btn').on("click",function(){
     $.ajax({
   type:"get",       
   url: '/products', //web.phpのURLと同じ形にする
