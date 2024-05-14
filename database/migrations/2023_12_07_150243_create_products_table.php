@@ -23,6 +23,9 @@ return new class extends Migration
             // $table->integer('company');
             $table->text('comment');
             $table->timestamps();
+            // 論理削除用に追記
+            $table->softDeletes()->nullable();
+
 
         });
     }

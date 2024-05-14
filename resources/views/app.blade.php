@@ -15,6 +15,11 @@
     }
     </style>
     <title>自動販売機管理システム課題（ここはapp.blade.php）</title>
+
+    
+    <!-- step8のjqueryのmin -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/test.js') }}"></script>
   </head>
   <body>
     <div class="container">

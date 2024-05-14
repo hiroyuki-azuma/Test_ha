@@ -4,10 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+// 論理削除用に追記
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 // リレーションの為に追記
 use App\Models\Company;
 
 class Product extends Model {
+
+    // 論理削除用に追記
+    use SoftDeletes;
+
     use HasFactory;
 
     protected $fillable = [

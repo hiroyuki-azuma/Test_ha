@@ -11,7 +11,7 @@
             <h4>検索条件で絞り込み</h4>
 
         <!-- //* 検索機能ここから *// -->
-            <form action="{{ route('products.index') }}" method="GET" class="row g-3">
+            <form action="{{ route('products.index') }}" method="GET" class="row g-3" id="search">
 
                 <!-- キーワード検索の入力欄 -->
                 <div class="col-sm-12 col-md-3">
@@ -78,7 +78,7 @@
 
 
     <!-- ここからコンテンツ -->
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="targetTable">
         <tr>
             <th>商品番号</th>
             <th>商品画像</th>
