@@ -70,21 +70,6 @@ class ProductController extends Controller {
     {
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
     * Show the form for creating a new resource.
     *
@@ -276,7 +261,7 @@ class ProductController extends Controller {
     public function destroy( Product $product ) {
 
         // 論理削除用に追記
-        Product::find(1)->delete();
+        Product::find()->delete();
 
         $product->delete();
         return redirect()->route( 'products.index' )
