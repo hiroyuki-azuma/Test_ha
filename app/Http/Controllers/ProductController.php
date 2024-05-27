@@ -258,22 +258,16 @@ class ProductController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function destroy( Product $product ) {
-
-        // 論理削除用に追記
-        Product::find()->delete();
-
-        $product->delete();
-        return redirect()->route( 'products.index' )
-        ->with( 'success', '商品'.$product->product_name.'を削除しました' );
-
+    public function destroy($product) {
 
         try {
             Product::destroy($product);
             return ['message' => '削除しました。'];
+
         } catch (\Throwable $e) {
             \Log::error($e);
             throw $e;
         }
+
     }
 }
