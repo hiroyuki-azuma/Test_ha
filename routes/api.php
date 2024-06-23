@@ -21,6 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // 追記
+Route::post('/purchase', 'SalesController@purchase'); 
+
 Route::post('/api', 'SalesController@purchase'); 
 
 
