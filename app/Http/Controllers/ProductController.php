@@ -16,6 +16,10 @@ class ProductController extends Controller {
 
     public function index( Request $request ) {
 
+        //sortable() を先に宣言
+        $products = Product::sortable()->get(); 
+        
+
         // キーワード検索フォームに入力された値を取得
         $keyword = $request->input( 'keyword' );
         // セレクトボックス検索フォームに入力された値を取得。
@@ -28,46 +32,43 @@ class ProductController extends Controller {
             $query->where( 'product_name', 'LIKE', "%{$keyword}%" );
         }
 
-            // 最小価格が指定されている場合、その価格以上の商品をクエリに追加
-    if($min_price = $request->min_price){
-        $query->where('price', '>=', $min_price);
-    }
+        // 最小価格が指定されている場合、その価格以上の商品をクエリに追加
+        if ( $min_price = $request->min_price ) {
+            $query->where( 'price', '>=', $min_price );
+        }
 
-    // 最大価格が指定されている場合、その価格以下の商品をクエリに追加
-    if($max_price = $request->max_price){
-        $query->where('price', '<=', $max_price);
-    }
+        // 最大価格が指定されている場合、その価格以下の商品をクエリに追加
+        if ( $max_price = $request->max_price ) {
+            $query->where( 'price', '<=', $max_price );
+        }
 
-    // 最小在庫数が指定されている場合、その在庫数以上の商品をクエリに追加
-    if($min_stock = $request->min_stock){
-        $query->where('stock', '>=', $min_stock);
-    }
+        // 最小在庫数が指定されている場合、その在庫数以上の商品をクエリに追加
+        if ( $min_stock = $request->min_stock ) {
+            $query->where( 'stock', '>=', $min_stock );
+        }
 
-    // 最大在庫数が指定されている場合、その在庫数以下の商品をクエリに追加
-    if($max_stock = $request->max_stock){
-        $query->where('stock', '<=', $max_stock);
-    }
+        // 最大在庫数が指定されている場合、その在庫数以下の商品をクエリに追加
+        if ( $max_stock = $request->max_stock ) {
+            $query->where( 'stock', '<=', $max_stock );
+        }
 
         //メーカー名が選択された場合、companiesテーブルからcompany_idが一致する商品を$queryに代入
         if ( !empty( $company_id ) ) {
             $query->where( 'company_id', '=', $company_id );
         }
-    
+
         $products = $query->get();
 
         // Companyのデータを全部持ってくる。
         $companies = Company::all();
 
-        return view( 'index', compact( 'products', 'keyword', 'companies', 'company_id') );
+        return view( 'index', compact( 'products', 'keyword', 'companies', 'company_id' ) );
         // 非同期処理用に追記
-        // return response()->json($products,$companies);
-
+        // return response()->json( $products, $companies );
 
     }
 
-
-    public function getUsersBySearchName($userName)
-    {
+    public function getUsersBySearchName( $userName ) {
     }
 
     /**
@@ -76,7 +77,7 @@ class ProductController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function create(Request $request) {
+    public function create( Request $request ) {
         $companies = Company::all();
         return view( 'create' )
         ->with( 'companies', $companies );
@@ -85,13 +86,13 @@ class ProductController extends Controller {
             // トランザクションの開始
             \DB::beginTransaction();
 
-            if ($request->hasFile('image')) {
+            if ( $request->hasFile( 'image' ) ) {
                 // 画像の保存処理 成功したらファイル名 失敗したら例外を返す
-                $image_path = Company::IMAGE_DIR . Company::saveImage($request->file('image'));
+                $image_path = Company::IMAGE_DIR . Company::saveImage( $request->file( 'image' ) );
             }
 
             // データの作成（この時点ではDBには保存されない）
-            $companies = Company::make($request->all());
+            $companies = Company::make( $request->all() );
             $companies->image_path = $image_path ?? '';
 
             // 作成したデータをDBに保存 失敗したら例外を返す
@@ -100,13 +101,13 @@ class ProductController extends Controller {
             // 全ての保存処理が成功したので処理を確定する
             \DB::commit();
 
-            return ['message' => '保存に成功しました。'];
-        } catch (\Throwable $e) {
+            return [ 'message' => '保存に成功しました。' ];
+        } catch ( \Throwable $e ) {
             // 例外が起きたらロールバックを行う
             \DB::rollback();
 
             // 失敗した原因をログに残す
-            \Log::error($e);
+            \Log::error( $e );
 
             // フロントにエラーを通知
             throw $e;
@@ -218,15 +219,15 @@ class ProductController extends Controller {
             \DB::beginTransaction();
 
             // 更新対象の商品を検索
-            $product = Product::findOrFail($id);
+            $product = Product::findOrFail( $id );
 
-            if ($request->hasFile('image')) {
+            if ( $request->hasFile( 'image' ) ) {
                 // 画像の更新処理 成功したらファイル名 失敗したら例外を返す
-                $image_path = Product::IMAGE_DIR . Product::updateImage($request->file('image'), $product->image_path);
+                $image_path = Product::IMAGE_DIR . Product::updateImage( $request->file( 'image' ), $product->image_path );
             }
 
             // データの更新（この時点ではDBのデータは更新されない）
-            $product->fill($request->all());
+            $product->fill( $request->all() );
             $product->image_path = $image_path ?? '';
 
             // 更新したデータをDBに保存 失敗したら例外を返す
@@ -235,16 +236,16 @@ class ProductController extends Controller {
             // 全ての更新処理が成功したので処理を確定する
             \DB::commit();
 
-            return ['message' => '更新に成功しました。'];
-        } catch (ModelNotFoundException $e) {
+            return [ 'message' => '更新に成功しました。' ];
+        } catch ( ModelNotFoundException $e ) {
             // データが見つからなかっただけならロギング不要
             throw $e;
-        } catch (\Throwable $e) {
+        } catch ( \Throwable $e ) {
             // 例外が起きたらロールバックを行う
             \DB::rollback();
 
             // 失敗した原因をログに残す
-            \Log::error($e);
+            \Log::error( $e );
 
             // フロントにエラーを通知
             throw $e;
@@ -258,14 +259,14 @@ class ProductController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function destroy($product) {
+    public function destroy( $product ) {
 
         try {
-            Product::destroy($product);
-            return ['message' => '削除しました。'];
+            Product::destroy( $product );
+            return [ 'message' => '削除しました。' ];
 
-        } catch (\Throwable $e) {
-            \Log::error($e);
+        } catch ( \Throwable $e ) {
+            \Log::error( $e );
             throw $e;
         }
 

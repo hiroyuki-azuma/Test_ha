@@ -37,6 +37,7 @@ require __DIR__.'/auth.php';
 // 非同期処理用としても活用
 Route::get('/products', 'App\Http\Controllers\ProductController@index')->name('products.index');
 
+
 Route::get('/products/create', 'App\Http\Controllers\ProductController@create')->name('product.create');
 // 下はeditに飛ばす為にコメントアウトした
 Route::post('/products/store/', 'App\Http\Controllers\ProductController@store')->name('product.store');
