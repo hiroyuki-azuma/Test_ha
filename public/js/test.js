@@ -37,6 +37,7 @@ $("#form-btn").click(function () {
     })
     .always(function () {
       //通信の成功と失敗に関わらず実行される処理
+      console.log('通信が完了');
     });
 });
 
@@ -65,6 +66,7 @@ $("#delete-btn").click(function () {
     })
     .always(function () {
       //通信の成功と失敗に関わらず実行される処理
+      console.log('通信が完了');
     });
 });
 
