@@ -259,13 +259,16 @@ class ProductController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-public function destroy($id)
-{
-    // 商品の削除処理
+    public function destroy( $product ) {
 
-    // 成功時のメッセージをセッションに格納
-    return response()->json(['message' => '削除が完了しました。']);
-}
+        try {
+            Product::destroy( $product );
+            return [ 'message' => '削除しました。' ];
 
-    
+        } catch ( \Throwable $e ) {
+            \Log::error( $e );
+            throw $e;
+        }
+
+    }
 }
