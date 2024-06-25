@@ -2,7 +2,7 @@
 
   
 @section('content')
-    <div class="row">
+    <div class="row" id="headpart">
         <div class="col-lg-12">
             <div class="text-left">
                 <h2 style="font-size:2rem; margin-bottom: 100px;">商品一覧画面</h2>
@@ -131,5 +131,17 @@
         @endforeach
     </table>
     <!-- ここまでコンテンツ -->
+
+    <script>
+        $(document).ready(function() {
+
+            // 検索条件をリセットするリンクをクリックしたら検索フォームを表示する
+            $('.form-btn').click(function() {
+                $('#headpart').hide();
+            });
+        });
+    </script>
+
+    
 
 @endsection
