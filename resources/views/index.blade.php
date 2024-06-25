@@ -135,7 +135,7 @@
     <script>
         $(document).ready(function() {
 
-            // 検索条件をリセットするリンクをクリックしたら検索フォームを表示する
+            // 検索ボタンをクリックしたらheadpart部分を非表示にする
             $('.form-btn').click(function() {
                 $('#headpart').hide();
             });
