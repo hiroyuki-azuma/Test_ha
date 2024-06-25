@@ -20,6 +20,10 @@ $(document).ready(function () {
         console.log('通信成功');
         // 新しいテーブルのHTMLを反映する（具体的なコードは記載されていないため、適宜実装する）
         $("#targetTable").html(response);
+
+        // headpartの複製を防止
+        $('#headpart').hide();
+
       })
       .fail(function () {
         // 通信失敗時の処理

@@ -132,16 +132,4 @@
     </table>
     <!-- ここまでコンテンツ -->
 
-    <script>
-        $(document).ready(function() {
-
-            // 検索ボタンをクリックしたらheadpart部分を非表示にする
-            $('.form-btn').click(function() {
-                $('#headpart').hide();
-            });
-        });
-    </script>
-
-    
-
 @endsection
