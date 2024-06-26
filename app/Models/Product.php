@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 // 論理削除用に追記
 use Illuminate\Database\Eloquent\SoftDeletes;
 // ソート用に追記
-use Kyslik\ColumnSortable\Sortable; 
+use Kyslik\ColumnSortable\Sortable;
 
 
 // リレーションの為に追記
@@ -20,8 +20,8 @@ class Product extends Model {
 
     // ソート用に追記
     use Sortable;
-    //(ソートに使うカラムを追記
-    public $sortable = ['id','price','stock'];
+    // ソートに使うカラムを追記
+    public $sortable = [ 'id', 'price', 'stock' ];
 
 
     use HasFactory;

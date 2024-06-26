@@ -41,47 +41,34 @@ $(document).ready(function () {
 
 
 
-// 削除ボタンがクリックされた時の処理
+// 削除処理の非同期処理化
 $(document).ready(function () {
-  $('.delete-btn').click(function (e) {
-    e.preventDefault();
-    var productId = $(this).data('product-id');
-    if (confirm("削除しますか？")) {
-      $.ajax({
-        type: 'POST',
-        url: "{{ route('product.destroy', ':id') }}".replace(':id', productId),
-        data: {
-          '_token': '{{ csrf_token() }}',
-          '_method': 'DELETE'
-        },
-        success: function (data) {
-          // 成功時の処理（該当行をテーブルから削除するなど）
-          $('#row_' + productId).remove();
-          // 成功メッセージを表示する場合はここに追加
-          alert(data.message);
-        },
-        error: function (data) {
-          // エラー時の処理
-          alert('削除に失敗しました。');
-        }
+
+  // 削除ボタンがクリックされたときの処理
+  $('body').on('click', '.delete-btn', function (event) {
+    event.preventDefault(); // デフォルトのイベントをキャンセルする
+    // console.log('削除テスト');
+
+
+    let deleteUrl = $(this).attr('href'); // 削除リンクのURLを取得
+
+    $.ajax({
+      type: "DELETE",
+      url: deleteUrl, // 削除リンクのURLにDELETEリクエストを送信
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRFトークンを含める
+      }
+    })
+      .done(function () {
+        // 成功時の処理
+        console.log('削除成功');
+
+      })
+      .fail(function () {
+        // 失敗時の処理
+        console.log('削除失敗');
+
       });
-    }
   });
+
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

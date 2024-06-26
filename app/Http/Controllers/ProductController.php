@@ -62,7 +62,7 @@ class ProductController extends Controller {
         // Companyのデータを全部持ってくる。
         $companies = Company::all();
 
-        return view( 'index', compact( 'products', 'keyword', 'companies', 'company_id' ) );
+        return view( 'index', compact( 'products', 'keyword', 'companies', 'company_id', ) );
         // 非同期処理用に追記
         // return response()->json( $products, $companies );
 
@@ -259,16 +259,24 @@ class ProductController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function destroy( $product ) {
-
+    public function destroy($id)
+    {
         try {
-            Product::destroy( $product );
-            return [ 'message' => '削除しました。' ];
-
-        } catch ( \Throwable $e ) {
-            \Log::error( $e );
-            throw $e;
+            $product = Product::findOrFail($id);
+            $product->delete();
+        
+            return response()->json([
+                'success' => true,
+                'message' => '商品を削除しました。',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => '削除中にエラーが発生しました。',
+            ], 500); // エラーの場合は適切なステータスコードを返す
         }
-
     }
+    
+    
+    
 }

@@ -131,5 +131,20 @@
         @endforeach
     </table>
     <!-- ここまでコンテンツ -->
+     <!-- JavaScriptでソートを実装 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let headers = document.querySelectorAll('#targetTable th');
+        headers.forEach(function (header) {
+            header.addEventListener('click', function () {
+                let link = this.querySelector('a');
+                if (link) {
+                    window.location.href = link.href;
+                }
+            });
+        });
+    });
+</script>
+
 
 @endsection
