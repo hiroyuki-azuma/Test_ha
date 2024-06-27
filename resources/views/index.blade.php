@@ -119,7 +119,11 @@
 
             <!-- 削除ボタン追記ここから -->
             <td>
-                        <button class="btn btn-sm btn-danger delete-product" data-id="{{ $product->id }}">削除</button>
+            <form action="{{ route('product.destroy',$product->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("削除しますか？");' id="delete-btn">削除</button>
+            </form>
                     </td>
             <!-- 削除ボタン追記ここまで -->
 
@@ -127,7 +131,8 @@
         @endforeach
     </table>
     <!-- ここまでコンテンツ -->
-     <!-- JavaScriptでソートを実装 -->
+     
+    <!-- JavaScriptでソートを実装 -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         let headers = document.querySelectorAll('#targetTable th');
@@ -141,6 +146,8 @@
         });
     });
 </script>
+
+
 
 
 @endsection
