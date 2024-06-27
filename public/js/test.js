@@ -43,32 +43,31 @@ $(document).ready(function () {
 
 // 削除処理の非同期処理化
 $(document).ready(function () {
+  // Ensure event binding after document is ready
+  $(document).on('click', '.btn-danger', function (event) {
+      event.preventDefault();
 
-  // 削除ボタンがクリックされたときの処理
-  $('body').on('click', '.delete-btn', function (event) {
-    event.preventDefault(); // デフォルトのイベントをキャンセルする
-    // console.log('削除テスト');
+      let deleteUrl = $(this).attr('href');
+      console.log('Delete URL:', deleteUrl); // Log the delete URL for debugging
 
-
-    let deleteUrl = $(this).attr('href'); // 削除リンクのURLを取得
-
-    $.ajax({
-      type: "DELETE",
-      url: deleteUrl, // 削除リンクのURLにDELETEリクエストを送信
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRFトークンを含める
-      }
-    })
-      .done(function () {
-        // 成功時の処理
-        console.log('削除成功');
-
+      $.ajax({
+          type: "DELETE",
+          url: deleteUrl,
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
       })
-      .fail(function () {
-        // 失敗時の処理
-        console.log('削除失敗');
-
+      .done(function (response) {
+          console.log('削除成功');
+          location.reload(); // Reload the page on successful deletion
+      })
+      .fail(function (xhr, status, error) {
+          console.log('削除失敗');
+          console.log(xhr.responseText); // Log detailed error response
       });
   });
-
 });
+
+
+
+

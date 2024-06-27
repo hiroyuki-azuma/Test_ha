@@ -57,7 +57,10 @@ class ProductController extends Controller {
             $query->where( 'company_id', '=', $company_id );
         }
 
-        $products = $query->get();
+        // ソートの際、$productsが上書きされていたので修正
+        $products = $query->sortable()->get();
+        // $products = $query->get();
+
 
         // Companyのデータを全部持ってくる。
         $companies = Company::all();
@@ -259,10 +262,9 @@ class ProductController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function destroy($id)
+    public function destroy(Product $product)
     {
         try {
-            $product = Product::findOrFail($id);
             $product->delete();
         
             return response()->json([
@@ -276,6 +278,7 @@ class ProductController extends Controller {
             ], 500); // エラーの場合は適切なステータスコードを返す
         }
     }
+    
     
     
     

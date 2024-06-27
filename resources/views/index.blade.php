@@ -118,13 +118,9 @@
             </td>
 
             <!-- 削除ボタン追記ここから -->
-            <td style="text-align:center">
-                <form action="{{ route('product.destroy',$product->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("削除しますか？");' id="delete-btn">削除</button>
-                </form>
-            </td>
+            <td>
+                        <button class="btn btn-sm btn-danger delete-product" data-id="{{ $product->id }}">削除</button>
+                    </td>
             <!-- 削除ボタン追記ここまで -->
 
         </tr>
