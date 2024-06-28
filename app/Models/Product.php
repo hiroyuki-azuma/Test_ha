@@ -35,6 +35,8 @@ class Product extends Model {
         'comment',
     ];
 
+    
+
     public function company() {
         return $this->belongsTo( Company::class );
     }

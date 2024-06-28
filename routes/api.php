@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // 以下は追記
-use App\Http\Controllers\SalesController;
+use App\Http\Controllers\API\SalesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // 追記  
 
 Route::post('/purchase', [SalesController::class, 'purchase']);
-Route::post('/api', [SalesController::class, 'purchase']);
+
 
 
 
