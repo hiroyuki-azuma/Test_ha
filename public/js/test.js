@@ -1,4 +1,10 @@
 $(document).ready(function () {
+  // CSRFトークンを全てのAjaxリクエストに含める
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+    }
+  });
 
   // 検索機能の非同期化
   $("#form-btn").click(function (event) {
@@ -26,36 +32,37 @@ $(document).ready(function () {
       });
   });
 
-
   // 削除処理の非同期化
-  $(document).on('click', '.btn-danger', function (event) {
-    event.preventDefault();
-    console.log('削除ボタンは発火しています');
+  $(document).on('click', '.btn-danger', function(event) {
+    event.preventDefault(); // デフォルトのリンクの動作を防止
 
+    var deleteConfirm = confirm('削除してよろしいでしょうか？');
+    if (deleteConfirm == true) {
+      var clickEle = $(this);
+      // 削除ボタンにユーザーIDをカスタムデータとして埋め込んでいます。
+      var productID = clickEle.attr('product-id');
 
-    let deleteUrl = $(this).attr('href');
-    console.log('Delete URL:', deleteUrl); // デバッグのために削除URLをログに出力
-
-    $.ajax({
-      type: "DELETE",
-      url: deleteUrl,
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      // productIDがundefinedの場合、処理を中断する
+      if (productID === undefined) {
+        alert('プロダクトIDが見つかりません。');
+        return;
       }
-    })
 
-      .done(function (response) {
-        console.log('削除成功');
-        // 削除した商品のIDに基づいて該当行をテーブルから削除する
-        $('#product-' + response.id).remove();
+      $.ajax({
+        url: '/product/' + productID,
+        type: 'POST',
+        data: {
+          'id': productID,
+          '_method': 'DELETE'
+        }
       })
-      .fail(function (xhr, status, error) {
-        console.log('削除失敗');
-        console.log(xhr.responseText); // エラーレスポンスをログに出力
+      .done(function() {
+        // 通信が成功した場合、クリックした要素の親要素の <tr> を削除
+        clickEle.parents('tr').remove();
+      })
+      .fail(function() {
+        alert('エラー');
       });
+    }
   });
-
-
-
-
 });

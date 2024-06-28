@@ -262,11 +262,17 @@ class ProductController extends Controller {
 
     // ProductController.php
 
-    public function destroy( $id ) {
-        $product = Product::findOrFail( $id );
-        $product->delete();
+    // app/Http/Controllers/ProductController.php
 
-        return response()->json( [ 'message' => '削除が成功しました。', 'id' => $id ] );
+    public function destroy($id)
+    {
+        $product = Product::find($id);
+        if ($product) {
+            $product->delete();
+            return response()->json(['success' => 'Product deleted successfully']);
+        } else {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
     }
 
 }
