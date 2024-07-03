@@ -33,7 +33,7 @@ $(document).ready(function () {
   });
 
   // 削除処理の非同期化
-  $(document).on('click', '.btn-danger', function(event) {
+  $('#targetTable').off('click', '.btn-danger').on('click', '.btn-danger', function(event) {
     event.preventDefault(); // デフォルトのリンクの動作を防止
 
     var deleteConfirm = confirm('削除してよろしいでしょうか？');
